@@ -71,6 +71,20 @@ _________________________________________________________________
     - Groundtrurh\
     It is the visulaization of manually annotated audio file.
     ![GroundTruth](https://user-images.githubusercontent.com/61666843/80796988-3f48bc80-8bbe-11ea-9b22-bce43b76b3ae.png)
+ - Diarization Error Rate \
+ DER - 26.7% (Using Mean-Shift Clustering) \
+ DER - 33.8% (Using Kmeans Clustering)
 
 ## References 
+ - https://pdfs.semanticscholar.org/edff/b62b32ffcc2b5cc846e26375cb300fac9ecc.pdf
+ - https://github.com/pyannote/pyannote-audio 
+ - https://arxiv.org/abs/1710.10468
+ - https://www.isca-speech.org/archive/Interspeech_2017/pdfs/0411.PDF
+ - https://scikit-learn.org/stable/modules/clustering.html
+ - https://arxiv.org/abs/1710.10467
+ - https://github.com/Janghyun1230/Speaker_Verification
+ - https://github.com/yinruiqing/change_detection
+ - https://pypi.org/project/webrtcvad-wheels/
+ - https://github.com/wblgers/py_speech_seg/tree/master/BiLSTM
+ 
 
