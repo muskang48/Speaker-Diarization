@@ -61,6 +61,7 @@ _________________________________________________________________
 ![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png)
 
 3. Segmentation
+
 ![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
 
 4. Diarization Output Visulaiztion
@@ -71,5 +72,5 @@ _________________________________________________________________
     It is the visulaization of manually annotated audio file.
     ![GroundTruth](https://user-images.githubusercontent.com/61666843/80796988-3f48bc80-8bbe-11ea-9b22-bce43b76b3ae.png)
 
-
+## References 
 
