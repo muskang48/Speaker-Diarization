@@ -18,8 +18,8 @@ Desh.wav file is not manually annotated but can be used for testing the Diarizat
 This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
 Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
 Segmentation.ipynb and VAD.ipynb are colab files to get seperate results for Segmentation and Voice Activity Detection.\
-The complete dizrization system was evaluated for two clustering approaches kmeans and meanshift.kmeans.py and meanshift. .py files of both the clustering methods is uploaded. 
-For running the code in google colab you need to upload the required audio test file and wieghts of pre-trained model to your google drive account.
+The complete dizrization system was evaluated for two clustering approaches kmeans and meanshift.kmeans.py and meanshift. .py files of both the clustering methods is uploaded.
+- For running the code in google colab you need to upload the required audio test file and wieghts of pre-trained model to your google drive account.
 1. Mount the Google Drive.
 ```
 from google.colab import drive
@@ -56,6 +56,21 @@ Trainable params: 571,489
 Non-trainable params: 0
 _________________________________________________________________
 ``` 
-2. Clustering 
+2. Clustering\ 
 Number of Speakers in an audio is equal to the number of clusters formed.
-<img src="images/Clusters.png">
+![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png)
+
+3. Segmentation
+
+![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
+- Diarization Output Visulaiztion
+    - Hyothesis\
+    It shows who spoke when in an audio. 
+    ![Hypothesis](https://user-images.githubusercontent.com/61666843/80796883-ff81d500-8bbd-11ea-8f16-313c674d9137.png)
+    - Groundtrurh\
+    It is the visulaization of manually annotated audio file.
+    ![GroundTruth](https://user-images.githubusercontent.com/61666843/80796988-3f48bc80-8bbe-11ea-9b22-bce43b76b3ae.png)
+
+
+
+
