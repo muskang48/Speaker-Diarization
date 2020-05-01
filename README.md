@@ -65,7 +65,7 @@ _________________________________________________________________
 ![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
 
 4. Diarization Output Visulaiztion
-    - Hyothesis\
+    - Hypothesis\
     It shows who spoke when in an audio. 
     ![Hypothesis](https://user-images.githubusercontent.com/61666843/80796883-ff81d500-8bbd-11ea-8f16-313c674d9137.png)
     - Groundtrurh\
