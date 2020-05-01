@@ -17,8 +17,10 @@ Desh.wav file is not manually annotated but can be used for testing the Diarizat
 ## How to Run the code
 For running the code in google collab you need to upload the required audio test file and wieghts of pre-trained model to your google drive account.
 1. Mount the Google Drive.\
+'''
 from google.colab import drive
 drive.mount('/content/drive')
+'''
 2. Define the path to pre-trained model file and testing audio file. Ypu can add the files to your drive and redefine the path.
 ## Analysis
 ## References
