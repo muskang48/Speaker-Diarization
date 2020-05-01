@@ -15,13 +15,47 @@ The Testing Data contains 4 Audio files and 1 Annotation file. The Annotation fi
 Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
 [Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5)
 ## How to Run the code
-For running the code in google collab you need to upload the required audio test file and wieghts of pre-trained model to your google drive account.
-1. Mount the Google Drive.\
+This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
+Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
+Segmentation.ipynb and VAD.ipynb are colab files to get seperate results for Segmentation and Voice Activity Detection.\
+The complete dizrization system was evaluated for two clustering approaches kmeans and meanshift.kmeans.py and meanshift. .py files of both the clustering methods is uploaded. 
+For running the code in google colab you need to upload the required audio test file and wieghts of pre-trained model to your google drive account.
+1. Mount the Google Drive.
 ```
 from google.colab import drive
 drive.mount('/content/drive')
 ```
 2. Define the path to pre-trained model file and testing audio file. You can add the files to your drive and redefine the path.
-
+```
+h5_model_file = '/content/drive/My Drive/SRU/model_hindi_2.h5'
+segmented, n_clusters, hyp_df, result_hypo = diarization('/content/drive/My Drive/SRU/Hindi_01.wav')
+reference, ref_df = reference_gen('/content/drive/My Drive/SRU/hindi_annotations1.csv')
+```
 ## Analysis
-## References
+Results-Testing the Model for Hindi_01.wav file having 7 Speakers. Duration of Audio-file (30 minutes 23 seconds)
+1. Segmentation Model
+```
+TensorFlow 1.x selected.
+Using TensorFlow backend.
+Model: "sequential_1"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+bidirectional_1 (Bidirection (None, 137, 256)          167936    
+_________________________________________________________________
+bidirectional_2 (Bidirection (None, 137, 256)          394240    
+_________________________________________________________________
+time_distributed_1 (TimeDist (None, 137, 32)           8224      
+_________________________________________________________________
+time_distributed_2 (TimeDist (None, 137, 32)           1056      
+_________________________________________________________________
+time_distributed_3 (TimeDist (None, 137, 1)            33        
+=================================================================
+Total params: 571,489
+Trainable params: 571,489
+Non-trainable params: 0
+_________________________________________________________________
+``` 
+2. Clustering 
+Number of Speakers in an audio is equal to the number of clusters formed.
+<img src="images/Clusters.png">
