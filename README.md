@@ -113,12 +113,13 @@ Mean Shift is very similar to the K-Means algorithm, except for one very importa
 Mean shift exploits KDE idea by imagining what the points would do if they all climbed up hill to the nearest peak on the KDE surface. It does so by iteratively shifting each point uphill until it reaches a peak. Depending on the kernel bandwidth used, the KDE surface (and end clustering) will be different. As an extreme case, imagine that we use extremely tall skinny kernels (e.g., a small kernel bandwidth). The resultant KDE surface will have a peak for each point. This will result in each point being placed into its own cluster. On the other hand, imagine that we use an extremely short fat kernels (e.g., a large kernel bandwidth). This will result in a wide smooth KDE surface with one peak that all of the points will climb up to, resulting in one cluster. Kernels in between these two extremes will result in nicer clusterings. Below are two animations of mean shift running for different kernel bandwidth values. \
  Following [Link](https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/) gives more idea.
 ## Dataset
-1. AMI Corpus Data\
+1. AMI Corpus Data
+The AMI Meeting Corpus is a multi-modal data set consisting of 100 hours of meeting recordings. For our project we have recordings of 2003 metting. There are four files with total length of more than 2 hours. Annotations have been already provided with this standard dataset. The dataset can be downloaded from the following [link](http://groups.inf.ed.ac.uk/ami/download/). 
 2. Hindi A Data
-Hindi A data is taken from Hindi News Channel Debate from Youtbue Video https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s. The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. . The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB) This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
+Hindi A data is taken from Hindi News Channel Debate from Youtbue Video https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s. The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. . The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5) This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
 3. Hindi B Data  
 Hindi B data is also taken from Hindi News channel Debate but it is more noise free and overlapping is less in Hindi B data. It's duration is around 1 hour It is taken from Youtbue Video https://www.youtube.com/watch?v=fGEWWAly_-0. This dataset is also split into 3 files Hindi1_01,Hindi1_02, Hindi1_03. The complete dataset is manually annotated.
-[Link to Hindi B Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5).This link consists of 3 audio files Hindi1_01.wav,Hindi1_02.wav,Hindi1_03.wav along with manually annotated .csv file.
+[Link to Hindi B Data](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB).This link consists of 3 audio files Hindi1_01.wav,Hindi1_02.wav,Hindi1_03.wav along with manually annotated .csv file.
 4. Another testing Datasets
 desh.wav audio file was extracted from https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s . This is the Youtube Video recording of date (April 15, 2020).
 modi_2.wav audio file was extracted from  https://www.youtube.com/watch?v=qS1eOqGs3H0&t=725s. This is the Youtube recording of date
@@ -145,8 +146,89 @@ h5_model_file = '/content/drive/My Drive/SRU/model_hindi_2.h5'
 segmented, n_clusters, hyp_df, result_hypo = diarization('/content/drive/My Drive/SRU/Hindi_01.wav')
 reference, ref_df = reference_gen('/content/drive/My Drive/SRU/hindi_annotations1.csv')
 ```
-## Analysis
-Results-Testing the Model for Hindi_01.wav file having 7 Speakers. Duration of Audio-file (30 minutes 23 seconds)
+# Analysis
+In this part we will discuss about the major analysis of the code and the intepretations of the results.
+1. Voice activity Detector
+Following is the code to find the voice and non voice parts,
+
+```
+import contextlib
+import numpy as np
+import wave
+import librosa
+import webrtcvad
+
+
+def read_wave(path):
+    with contextlib.closing(wave.open(path, 'rb')) as wf:
+        num_channels = wf.getnchannels()
+        assert num_channels == 1
+        sample_width = wf.getsampwidth()
+        assert sample_width == 2
+        sample_rate = wf.getframerate()
+        assert sample_rate in (8000, 16000, 32000, 48000)
+        pcm_data = wf.readframes(wf.getnframes())
+        return pcm_data, sample_rate
+
+
+class Frame(object):
+  def __init__(self, bytes, timestamp, duration):
+        self.bytes = bytes
+        self.timestamp = timestamp
+        self.duration = duration
+
+
+def frame_generator(frame_duration_ms, audio, sample_rate):
+    n = int(sample_rate * (frame_duration_ms / 1000.0) * 2)
+    offset = 0
+    timestamp = 0.0
+    duration = (float(n) / sample_rate) / 2.0
+    while offset + n < len(audio):
+        yield Frame(audio[offset:offset + n], timestamp, duration)
+        timestamp += duration
+        offset += n
+
+
+def vad_collector(vad, frames, sample_rate):
+    is_speech = []
+    for frame in frames:
+        is_speech.append(vad.is_speech(frame.bytes, sample_rate))
+    return is_speech
+
+
+def vad(file):
+    audio, sample_rate = read_wave(file)
+    vad = webrtcvad.Vad(3)
+    frames = frame_generator(10, audio, sample_rate)
+    frames = list(frames)
+    segments = vad_collector(vad, frames, sample_rate)
+    return segments
+
+def speech(file):
+  dummy = 0
+  data = []
+  segments = vad(file)
+  audio, sr = librosa.load(file, sr=16000)
+  for i in segments:
+    if i == True:
+      data.append(audio[dummy:dummy + 480])
+      dummy = dummy + 480
+    else:
+      dummy = dummy + 480
+  data = np.ravel(np.asarray(data))
+
+  return data
+
+def fxn(file):
+  segments = vad(file)
+  segments = np.asarray(segments)
+  dummy = 0.01*np.where(segments[:-1] != segments[1:])[0] +.01
+  # dummy = np.delete(dummy, len(dummy)-1)
+  voice = dummy.reshape(int(len(dummy)/2),2)
+  
+  return voice
+```
+The function at the end of above code "fxn" gives the output of which frame is voiced. The basic working has been already explained in above section. Output is a numpy array contain the pairs which define the start and end of a frame. The following results have been generated for Hindi_01.wav file having 7 Speakers. Duration of Audio-file (30 minutes 23 seconds)
 1. Segmentation Model
 ```
 TensorFlow 1.x selected.
