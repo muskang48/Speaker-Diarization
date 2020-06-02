@@ -316,7 +316,7 @@ where false alarm is the duration of non-speech incorrectly classified as speech
 # Results
 
 1. AMI Corpus - As part of initial experimentation we produced results which were evaluated on DER mainly. \
-    - DER - 26.7% (Using Mean-Shift Clustering) \
+    - DER - 26.7% (Using Mean-Shift Clustering)
     - DER - 33.8% (Using Kmeans Clustering) \
 ![Capture1](https://user-images.githubusercontent.com/44304305/83499265-b681b100-a4da-11ea-9c7d-f5d59c8f5022.JPG)
 
@@ -324,7 +324,7 @@ where false alarm is the duration of non-speech incorrectly classified as speech
 ![Capture2](https://user-images.githubusercontent.com/44304305/83498771-f5fbcd80-a4d9-11ea-86eb-99ffa77a41b3.JPG)
 
 3. Hindi B - The results from Hindi A were not convincing so we made another dataset we called Hindi B which had lesser overlaps and minimum noise. The DER we got was 
-    - DER - 12.1% (Using Mean-Shift Clustering) \
+    - DER - 12.1% (Using Mean-Shift Clustering)
     - DER - 20.8% (Using Kmeans Clustering) \
 ![Capture3](https://user-images.githubusercontent.com/44304305/83498827-0ad86100-a4da-11ea-88de-03de63554460.JPG)
 
