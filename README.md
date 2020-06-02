@@ -293,8 +293,8 @@ def embeddings_(audio_path,resegmented,range):
   return data.reshape(len(data),512)
  ```
 The function "resegmented" asks for the resegmented numpy array along with the factor that governs the length of audio frame to be considered to find d-vectors per frame.
-   - Number of Speakers in an audio is equal to the number of clusters formed.
-![07](https://user-images.githubusercontent.com/57112474/83510609-e933a580-a4ea-11ea-9d22-f2026bce7d9f.png)
+   - Number of Speakers in an audio is equal to the number of clusters formed. \
+![07](https://user-images.githubusercontent.com/57112474/83510609-e933a580-a4ea-11ea-9d22-f2026bce7d9f.png) \
 This clustering result is from the KMeans Algo which take input of how many speakers are there.
 
 
@@ -308,25 +308,29 @@ The final part is to now evaluate how true we are. For this again we have used P
     ![GroundTruth](https://user-images.githubusercontent.com/61666843/80796988-3f48bc80-8bbe-11ea-9b22-bce43b76b3ae.png)
  
  6. Diarization Error Rate
- Diarization error rate (DER) is the emph{de facto} standard metric for evaluating and comparing speaker diarization systems. It is defined as follows
+ Diarization error rate (DER) is the emph{de facto} standard metric for evaluating and comparing speaker diarization systems. It is defined as follows \
  ![08](https://user-images.githubusercontent.com/57112474/83510965-8262bc00-a4eb-11ea-9c1d-befe80d65fdd.png) \
 where false alarm is the duration of non-speech incorrectly classified as speech, missed detection is the duration of speech incorrectly classified as non-speech, confusion is the duration of speaker confusion, and total is the total duration of speech in the reference.
 
 
-We performed total 4 experiments on 3 datasets.
-1. AMI Corpus - As part of initial experimentation we produced results which were evaluated on DER mainly. 
-    DER - 26.7% (Using Mean-Shift Clustering) \
-    DER - 33.8% (Using Kmeans Clustering)
+# Results
+
+1. AMI Corpus - As part of initial experimentation we produced results which were evaluated on DER mainly. \
+    - DER - 26.7% (Using Mean-Shift Clustering) \
+    - DER - 33.8% (Using Kmeans Clustering) \
 ![Capture1](https://user-images.githubusercontent.com/44304305/83499265-b681b100-a4da-11ea-9c7d-f5d59c8f5022.JPG)
 
-2. Hindi A - To experiment with Hindi language we made this data set from a group discussion on youutube. This was mostly noisy and overalap was also more. Because of the noise and the overlap we got DER as 60%.
+2. Hindi A - To experiment with Hindi language we made this data set from a group discussion on youutube. This was mostly noisy and overalap was also more. Because of the noise and the overlap we got DER as 60% (Kmeans Clustering).
 ![Capture2](https://user-images.githubusercontent.com/44304305/83498771-f5fbcd80-a4d9-11ea-86eb-99ffa77a41b3.JPG)
 
-3. Hindi B - The results from Hindi A were not convincing so we made another dataset we called Hindi B which had lesser overlaps and minimum noise. The DER we got was 12%.
+3. Hindi B - The results from Hindi A were not convincing so we made another dataset we called Hindi B which had lesser overlaps and minimum noise. The DER we got was 
+    - DER - 12.1% (Using Mean-Shift Clustering) \
+    - DER - 20.8% (Using Kmeans Clustering) \
 ![Capture3](https://user-images.githubusercontent.com/44304305/83498827-0ad86100-a4da-11ea-88de-03de63554460.JPG)
 
 
-4. Semi supervised - To extend the approach we used semi supervised methodology where we trained our data on Hindi B and then tested on Hindi A. We got 27% DER.
+# Semi supervised 
+To extend the approach we used semi supervised methodology where we trained our data on Hindi B and then tested on Hindi A. We got 27% DER.
 ![Capture4](https://user-images.githubusercontent.com/44304305/83499125-79b5ba00-a4da-11ea-91d0-bd420a9db610.JPG)
 
 
