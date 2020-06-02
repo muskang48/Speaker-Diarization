@@ -13,8 +13,11 @@ The audio files were manually annotated with the help of Audacity Software. Anno
 - Testing Data\
 The Testing Data contains 4 Audio files and 1 Annotation file. The annotation file is a csv file which was manually annotated and contains filename(Hindi_01/Hindi_02/Hindi_03) , Offset, Duration,  and Speaker Id. 
 1. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).Hindi_01, Hindi_02 and Hindi_03 are splitted from the audio recording taken from Hindi Yotubue Video of duration 1 hour 43 minutes.Link for the youtube recording - https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s
-2. Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
+2. Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s. The duration of this Audio is approx 28 minutes \
 [Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5). This link also contains the annotated .csv file. for the (Hindi_01,Hindi_02,Hindi_03) audio files.
+## NOTE:
+1. Almost all the files are near about duration of 30 minutes. If the duration is more than that it is split into the parts for making the duration less.\
+2. The test audio files are completly unseen and no speaker is same in the training and testing dataset.
 ## How to Run the code
 This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
 Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
