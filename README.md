@@ -82,11 +82,14 @@ We performed total 4 experiments on 3 datasets.
 ![Capture1](https://user-images.githubusercontent.com/44304305/83498543-ac12e780-a4d9-11ea-93f5-6fd91088c87c.JPG)
 
 2. Hindi A - To experiment with Hindi language we made this data set from a group discussion on youutube. This was mostly noisy and overalap was also more. Because of the noise and the overlap we got DER as 60%.
-
+![Capture2](https://user-images.githubusercontent.com/44304305/83498771-f5fbcd80-a4d9-11ea-86eb-99ffa77a41b3.JPG)
 
 3. Hindi B - The results from Hindi A were not convincing so we made another dataset we called Hindi B which had lesser overlaps and minimum noise. The DER we got was 12%.
+![Capture3](https://user-images.githubusercontent.com/44304305/83498827-0ad86100-a4da-11ea-88de-03de63554460.JPG)
+
 
 4. Semi supervised - To extend the approach we used semi supervised methodology where we trained our data on Hindi B and then tested on Hindi A. We got 27% DER.
+![Capture4](https://user-images.githubusercontent.com/44304305/83499125-79b5ba00-a4da-11ea-91d0-bd420a9db610.JPG)
 
 
 
