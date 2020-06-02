@@ -294,24 +294,29 @@ def embeddings_(audio_path,resegmented,range):
  ```
 The function "resegmented" asks for the resegmented numpy array along with the factor that governs the length of audio frame to be considered to find d-vectors per frame.
    - Number of Speakers in an audio is equal to the number of clusters formed.
-![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png
+![07](https://user-images.githubusercontent.com/57112474/83510609-e933a580-a4ea-11ea-9d22-f2026bce7d9f.png)
+This clustering result is from the KMeans Algo which take input of how many speakers are there.
 
 
 5. Diarization Output Visulaiztion
+The final part is to now evaluate how true we are. For this again we have used PyAnnote libraries metric module which contains DER (Diarization Error rate) function that helps us to say how much wrong we are in determining who spoke when. Following is just the visualition part of our hypothesis and groud truth
     - Hypothesis\
     It shows who spoke when in an audio. 
     ![Hypothesis](https://user-images.githubusercontent.com/61666843/80796883-ff81d500-8bbd-11ea-8f16-313c674d9137.png)
     - Groundtrurh\
     It is the visulaization of manually annotated audio file.
     ![GroundTruth](https://user-images.githubusercontent.com/61666843/80796988-3f48bc80-8bbe-11ea-9b22-bce43b76b3ae.png)
- - Diarization Error Rate \
- DER - 26.7% (Using Mean-Shift Clustering) \
- DER - 33.8% (Using Kmeans Clustering)
+ 
+ 6. Diarization Error Rate
+ Diarization error rate (DER) is the emph{de facto} standard metric for evaluating and comparing speaker diarization systems. It is defined as follows
+ ![08](https://user-images.githubusercontent.com/57112474/83510965-8262bc00-a4eb-11ea-9c1d-befe80d65fdd.png) \
+where false alarm is the duration of non-speech incorrectly classified as speech, missed detection is the duration of speech incorrectly classified as non-speech, confusion is the duration of speaker confusion, and total is the total duration of speech in the reference.
 
 
 We performed total 4 experiments on 3 datasets.
 1. AMI Corpus - As part of initial experimentation we produced results which were evaluated on DER mainly. 
-   DER on AMI corpus was 35.9%.
+    DER - 26.7% (Using Mean-Shift Clustering) \
+    DER - 33.8% (Using Kmeans Clustering)
 ![Capture1](https://user-images.githubusercontent.com/44304305/83499265-b681b100-a4da-11ea-9c7d-f5d59c8f5022.JPG)
 
 2. Hindi A - To experiment with Hindi language we made this data set from a group discussion on youutube. This was mostly noisy and overalap was also more. Because of the noise and the overlap we got DER as 60%.
