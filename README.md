@@ -113,14 +113,21 @@ Mean Shift is very similar to the K-Means algorithm, except for one very importa
 Mean shift exploits KDE idea by imagining what the points would do if they all climbed up hill to the nearest peak on the KDE surface. It does so by iteratively shifting each point uphill until it reaches a peak. Depending on the kernel bandwidth used, the KDE surface (and end clustering) will be different. As an extreme case, imagine that we use extremely tall skinny kernels (e.g., a small kernel bandwidth). The resultant KDE surface will have a peak for each point. This will result in each point being placed into its own cluster. On the other hand, imagine that we use an extremely short fat kernels (e.g., a large kernel bandwidth). This will result in a wide smooth KDE surface with one peak that all of the points will climb up to, resulting in one cluster. Kernels in between these two extremes will result in nicer clusterings. Below are two animations of mean shift running for different kernel bandwidth values. \
  Following [Link](https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/) gives more idea.
 ## Dataset
-- Training Data\
-To Train the Segmentation model Hindi Dataset was prepared.\The Link below contains 3 Audio files of Hindi News Channel Debate taken from Youtbue Video https://www.youtube.com/watch?v=fGEWWAly_-0 and Annotation file.\
-The audio files were manually annotated with the help of Audacity Software. Annotation Format (Speaker Id,Offset, duration)\
-[Link to Training Data Audio Files](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB)
-- Testing Data\
-The Testing Data contains 4 Audio files and 1 Annotation file. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).\
-Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
-[Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5)
+1. AMI Corpus Data\
+2. Hindi A Data
+Hindi A data is taken from Hindi News Channel Debate from Youtbue Video https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s. The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. . The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB) This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
+3. Hindi B Data  
+Hindi B data is also taken from Hindi News channel Debate but it is more noise free and overlapping is less in Hindi B data. It's duration is around 1 hour It is taken from Youtbue Video https://www.youtube.com/watch?v=fGEWWAly_-0. This dataset is also split into 3 files Hindi1_01,Hindi1_02, Hindi1_03. The complete dataset is manually annotated.
+[Link to Hindi B Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5).This link consists of 3 audio files Hindi1_01.wav,Hindi1_02.wav,Hindi1_03.wav along with manually annotated .csv file.
+4. Another testing Datasets
+desh.wav audio file was extracted from https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s . This is the Youtube Video recording of date (April 15, 2020).
+modi_2.wav audio file was extracted from  https://www.youtube.com/watch?v=qS1eOqGs3H0&t=725s. This is the Youtube recording of date
+(May 30, 2020)
+[Link to Another testing Dataset](https://drive.google.com/drive/folders/1M6OVvNJeroElBYksoQy6Y4L9RgC1Z5JC)
+We have not manually annotated these files. For these file the the Hypothesis were generated using the code and Visualized manually by listening to the audio.
+--NOTE
+1. All the hindi dataset was taken from Youtube Video recording. The audio files (.wav) from Youtube Video were extracted using the (MiniTool uTube Downloader)  and then this files were converted from stereo type to mono type using Audacity software. The spliiting of the files was also done using Audacity. Then splitted files were then exported as .wav files having sampling rate 48000Hz and were 16 bit PCM encoded.
+2. Hindi A and Hindi B dataset does not have same speakers. In both the data Speakers are different. None of the Speaker is same.
 ## How to Run the code
 This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
 Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
