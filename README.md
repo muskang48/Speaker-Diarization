@@ -11,9 +11,10 @@ To Train the Segmentation model Hindi Dataset was prepared.\The Link below conta
 The audio files were manually annotated with the help of Audacity Software. Annotation Format (Speaker Id,Offset, duration)\
 [Link to Training Data Audio Files](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB)
 - Testing Data\
-The Testing Data contains 4 Audio files and 1 Annotation file. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).\
-Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
-[Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5)
+The Testing Data contains 4 Audio files and 1 Annotation file. The annotation file is a csv file which was manually annotated and contains filename(Hindi_01/Hindi_02/Hindi_03) , Offset, Duration,  and Speaker Id. 
+1. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).Hindi_01, Hindi_02 and Hindi_03 are splitted from the audio recording taken from Hindi Yotubue Video of duration 1 hour 43 minutes.Link for the youtube recording - https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s
+2. Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
+[Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5). This link also contains the annotated .csv file. for the (Hindi_01,Hindi_02,Hindi_03) audio files.
 ## How to Run the code
 This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
 Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
