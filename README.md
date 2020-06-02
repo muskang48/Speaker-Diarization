@@ -114,7 +114,7 @@ Mean shift exploits KDE idea by imagining what the points would do if they all c
  Following [Link](https://spin.atomicobject.com/2015/05/26/mean-shift-clustering/) gives more idea.
 ## Dataset
 1. AMI Corpus Data
-The AMI Meeting Corpus is a multi-modal data set consisting of 100 hours of meeting recordings. For our project we have recordings of 2003 metting. There are four files with total length of more than 2 hours. Annotations have been already provided with this standard dataset. The dataset can be downloaded from the following [link](http://groups.inf.ed.ac.uk/ami/download/). 
+The AMI Meeting Corpus is a multi-modal data set consisting of 100 hours of meeting recordings. For our project we have recordings of 2003 metting. There are four files with total length of more than 2 hours. Annotations have been already provided with this standard dataset. The dataset can be downloaded from the following [link](http://groups.inf.ed.ac.uk/ami/download/). There are a total of four files namely ('ES2003a', 'ES2003b', 'ES2003c', 'ES2003d') which we have used.
 2. Hindi A Data
 Hindi A data is taken from Hindi News Channel Debate from Youtbue Video https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s. The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. . The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5) This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
 3. Hindi B Data  
@@ -228,8 +228,11 @@ def fxn(file):
   
   return voice
 ```
-The function at the end of above code "fxn" gives the output of which frame is voiced. The basic working has been already explained in above section. Output is a numpy array contain the pairs which define the start and end of a frame. The following results have been generated for Hindi_01.wav file having 7 Speakers. Duration of Audio-file (30 minutes 23 seconds)
-1. Segmentation Model
+The function at the end of above code "fxn" gives the output of which frame is voiced. The basic working has been already explained in above section. Output is a numpy array contain the pairs which define the start and end of a frame. The following results have been generated from AMI corpus data file 'ES2003a'. \
+![04](https://user-images.githubusercontent.com/57112474/83508965-4e39cc00-a4e8-11ea-89f4-3cd765d89e69.JPG)
+As we can see from 2.19 to 3.19 seconds conatins a single frame simillarly the last frmae is from 1139.58 to 1139.72 sec.
+2. Segmentation Model
+Now comes the core part of detecting changes, the basic architecture and working has been explained before. What we see here is for AMI corpus data set we have trained this model for all four files. We provide the model with both the MFCC features along with the annotation. Similarly, for other dataset i.e. Hindi A and Hindi B we have given the model all audio files along with annotation to learn the speaker change point. Following is the model that we have used,
 ```
 TensorFlow 1.x selected.
 Using TensorFlow backend.
@@ -252,13 +255,17 @@ Trainable params: 571,489
 Non-trainable params: 0
 _________________________________________________________________
 ``` 
-2. Clustering
-   - Number of Speakers in an audio is equal to the number of clusters formed.
-![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png)
-
-3. Segmentation
-
+Having total 571,489 trainable parameters it takes around 2 and half hours on AMI corpus dataset to be trained. After training the model we determine the change points, Following visual representation shows the change point on ES2003a file of AMI corpus
 ![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
+
+3. Combining VAD and Speaker Segmentation
+Next in this part we have combined the two outputs in a logical manner as explained earlier, sample output is as,
+![06](https://user-images.githubusercontent.com/57112474/83509868-b89f3c00-a4e9-11ea-8666-d0a0fb3249ed.JPG) As seen each frame corresponds to a single speaker, all that remains to find which speakers are same and which are different.
+
+4. Clustering
+   - Number of Speakers in an audio is equal to the number of clusters formed.
+![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png
+
 
 4. Diarization Output Visulaiztion
     - Hypothesis\
