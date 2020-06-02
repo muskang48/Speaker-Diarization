@@ -5,19 +5,42 @@ This project contains:
 - Speaker Segmentation based on Bi-LSTM
 - Embedding Extraction (d-vector extraction)
 - Clustering (k-MEANS and Mean Shift)
+# Voice Activity Detection
+Voice activity detection (VAD) is a technique in which the presence or absence of human speech is detected. This part has been completed using a module devloped by google called as WebRTC. It's an open framework for the web that enables Real-Time Communications (RTC) capabilities in the browser. The voice activity dector is one of the specific module present in WebRTC. This basic working of WebRTC based VAD is as,
+- WebRTC VAD is a Gaussian Mixture Model(GMM) based voice activity detector 
+- GMM model using PLP features
+- Two full covariance Gaussians: One for speech, and one for Non-Speech is used.
+To learn about PLP we followed this paper\
+[link](http://www5.informatik.uni-erlangen.de/Forschung/Publikationen/2005/Hoenig05-RPL.pdf).
+Following is breif analysis of PLP. PLP consists of the following steps: (i) The power spectrum is computed from the windowed speech signal. (ii) A frequency warping into the Bark scale is applied. (iii) The auditorily warped spectrum is convoluted with the power spectrum of the simulated critical-band masking curve to simulate the critical-band integration of human hearing. (iv) The smoothed
+spectrum is down-sampled at intervals of ≈ 1 Bark. The three steps frequency warping, smoothing and sampling (ii-iv) are integrated
+into a single filter-bank called Bark filter-bank. (v)An equal-loudness pre-emphasis weights the filter-bank outputs to
+simulate the sensitivity of hearing. (vi) The equalized values are transformed according to the power law of Stevens by raising
+each to the power of 0.33. The resulting auditorily warped line spectrum is further processed by (vii) linear prediction (LP).
+Precisely speaking, applying LP to the auditorily warped line spectrum means that we compute the predictor coefficients of a
+(hypothetical) signal that has this warped spectrum as a power spectrum. Finally, (viii), cepstral coefficients are obtained from
+the predictor coefficients by a recursion that is equivalent to the logarithm of the model spectrum followed by an inverse Fourier
+transform. Following figure shows a comparative scheme of PLP computation.
+
+# Speaker Segementation
+Speaker segmentation constitues the heart of speaker diarization, the idea to exactly identify the location of speaker change ooint in the order to miliseconds is still an open chalenge. Speaker segmentation constitutes the heart of speaker diarization, the idea to exactly identify the location of speaker change point in the order of milliseconds is still an open challenge. For this part we have tried to develop a state of art system which is BiLSTM network that is trained using a special SMORMS3 optimizer. SMORMS3 optimizer is a hyvrid oprimizer devloped using RMSprop and Adam optimizers. SMORMS3 stands for "squared mean over root mean squared cubed". Following link provied a detailied analysis of SMORMS3\
+[Link](https://sifter.org/~simon/journal/20150420.html) . Now, comming to our speaker segmentation part architecture which ultilizes this SMORMS3 optimizer wroks on the pricipal that address speaker change detection as a binary sequence labeling task using Bidirectional Long Short-Term Memory recurrent neural networks (Bi-LSTM). Given an audio recording, speaker change detection aims at
+finding the boundaries between speech turns of different speakers. In Figure below, the expected output of such a system would be
+the list of timestamps between spk1 & spk2, spk2 & spk1, and spk1 & spk4. 
+- First we extract the features, let x be a sequence of MFCC features extracted on a short (a few milliseconds) overlapping sliding window. The speaker change detection task is then turned into a binary sequence labeling task by defining y = (y1, y2...yT ) ∈ {0, 1}^T
+such that y_{i} = 1 if there is a speaker change during the ith frame, and y_{i} = 0 otherwise. The objective is then to find a function f : X → Y that matches a feature sequence to a label sequence. We propose to model this function f as a recurrent neural network trained using the binary cross-entropy loss function:
+
+
+
 ## Dataset
 - Training Data\
 To Train the Segmentation model Hindi Dataset was prepared.\The Link below contains 3 Audio files of Hindi News Channel Debate taken from Youtbue Video https://www.youtube.com/watch?v=fGEWWAly_-0 and Annotation file.\
 The audio files were manually annotated with the help of Audacity Software. Annotation Format (Speaker Id,Offset, duration)\
 [Link to Training Data Audio Files](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB)
 - Testing Data\
-The Testing Data contains 4 Audio files and 1 Annotation file. The annotation file is a csv file which was manually annotated and contains filename(Hindi_01/Hindi_02/Hindi_03) , Offset, Duration,  and Speaker Id. 
-1. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).Hindi_01, Hindi_02 and Hindi_03 are splitted from the audio recording taken from Hindi Yotubue Video of duration 1 hour 43 minutes.Link for the youtube recording - https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s
-2. Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s. The duration of this Audio is approx 28 minutes \
-[Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5). This link also contains the annotated .csv file. for the (Hindi_01,Hindi_02,Hindi_03) audio files.
- - NOTE:
-1. Almost all the files are near about duration of 30 minutes. If the duration is more than that it is split into the parts for making the duration less.\
-2. The test audio files are completly unseen and no speaker is same in the training and testing dataset.
+The Testing Data contains 4 Audio files and 1 Annotation file. The Annotation file is for just 3 Audio files (Hindi_01.wav , Hindi_02.wav and Hindi_03.wav).\
+Desh.wav file is not manually annotated but can be used for testing the Diarization System. It's taken from Yotube Video https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s \
+[Link to Testing Data](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5)
 ## How to Run the code
 This project contains 4 .ipynb files. One can open the files direclty in google Colab.\
 Change_detection.ipynb file creates the model and train the model for Segmentation. sp_diarization.ipynb is the major file for Complete diarization and uses the saved pre-trained model.\
