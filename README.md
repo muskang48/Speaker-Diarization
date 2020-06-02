@@ -79,7 +79,7 @@ _________________________________________________________________
 We performed total 4 experiments on 3 datasets.
 1. AMI Corpus - As part of initial experimentation we produced results which were evaluated on DER mainly. 
    DER on AMI corpus was 35.9%.
-
+![Capture1](https://user-images.githubusercontent.com/44304305/83498543-ac12e780-a4d9-11ea-93f5-6fd91088c87c.JPG)
 
 2. Hindi A - To experiment with Hindi language we made this data set from a group discussion on youutube. This was mostly noisy and overalap was also more. Because of the noise and the overlap we got DER as 60%.
 
