@@ -259,15 +259,45 @@ Having total 571,489 trainable parameters it takes around 2 and half hours on AM
 ![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
 
 3. Combining VAD and Speaker Segmentation
-Next in this part we have combined the two outputs in a logical manner as explained earlier, sample output is as,
-![06](https://user-images.githubusercontent.com/57112474/83509868-b89f3c00-a4e9-11ea-8666-d0a0fb3249ed.JPG) As seen each frame corresponds to a single speaker, all that remains to find which speakers are same and which are different.
+Next in this part we have combined the two outputs in a logical manner as explained earlier, sample output is as, \
+![06](https://user-images.githubusercontent.com/57112474/83509868-b89f3c00-a4e9-11ea-8666-d0a0fb3249ed.JPG) 
+As seen each frame corresponds to a single speaker, all that remains to find which speakers are same and which are different. The above results are for ES2003a file of AMI corpus.
 
-4. Clustering
+4. Clustering and Embedding Extraction
+The second most core aspect of this project is to correctly determine who is speaking. We have used pyannote which extracts the d-vectors of frames generated in last section
+ ```
+ import torch
+from pyannote.core import Segment
+
+def embeddings_(audio_path,resegmented,range):
+  model_emb = torch.hub.load('pyannote/pyannote-audio', 'emb')
+  # print(f'Embedding has dimension {model.dimension:d}.')
+  
+  embedding = model_emb({'audio': audio_path})
+  for window, emb in embedding:
+    assert isinstance(window, Segment)
+    assert isinstance(emb, np.ndarray)
+
+  y, sr = librosa.load(audio_path, sr=16000)
+  myDict={}
+  myDict['audio'] = audio_path
+  myDict['duration'] = len(y)/sr
+
+  data=[]
+  for i in resegmented:
+    excerpt = Segment(start=i[0], end=i[0]+range)
+    emb = model_emb.crop(myDict,excerpt)
+    data.append(emb.T)
+  data= np.asarray(data)
+  
+  return data.reshape(len(data),512)
+ ```
+The function "resegmented" asks for the resegmented numpy array along with the factor that governs the length of audio frame to be considered to find d-vectors per frame.
    - Number of Speakers in an audio is equal to the number of clusters formed.
 ![Clusters](https://user-images.githubusercontent.com/61666843/80796608-415e4b80-8bbd-11ea-8eab-c15e5508d25b.png
 
 
-4. Diarization Output Visulaiztion
+5. Diarization Output Visulaiztion
     - Hypothesis\
     It shows who spoke when in an audio. 
     ![Hypothesis](https://user-images.githubusercontent.com/61666843/80796883-ff81d500-8bbd-11ea-8f16-313c674d9137.png)
