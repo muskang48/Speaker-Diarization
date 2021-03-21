@@ -6,7 +6,7 @@ This project contains:
 - Embedding Extraction (d-vector extraction)
 - Clustering (k-MEANS and Mean Shift)
 ## Voice Activity Detection
-Voice activity detection (VAD) is a technique in which the presence or absence of human speech is detected. This part has been completed using a module devloped by google called as WebRTC. It's an open framework for the web that enables Real-Time Communications (RTC) capabilities in the browser. The voice activity dector is one of the specific module present in WebRTC. This basic working of WebRTC based VAD is as,
+Voice activity detection (VAD) is a technique in which the presence or absence of human speech is detected. This part has been completed using a module devloped by google called as WebRTC. It's an open framework for the web that enables Real-Time Communications (RTC) capabilities in the browser. The voice activity dector is one of the specific module present in WebRTC. This basic working of WebRTC based VAD is as follows:
 - WebRTC VAD is a Gaussian Mixture Model(GMM) based voice activity detector 
 - GMM model using PLP features
 - Two full covariance Gaussians: One for speech, and one for Non-Speech is used.
