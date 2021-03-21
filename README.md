@@ -335,7 +335,7 @@ where false alarm is the duration of non-speech incorrectly classified as speech
 
 4. Testing\
 To test the model that we trained using Hindi B data  we used part of Hindi A dataset as testing file.The speakers of both the dataset are different. We got 27% DER. <br /> The below results are for Hindi_01.wav file of Hindi A dataset.\
-![Capture4](https://user-images.githubusercontent.com/44304305/83499125-79b5ba00-a4da-11ea-91d0-bd420a9db610.JPG)\
+![Capture4](https://user-images.githubusercontent.com/44304305/83499125-79b5ba00-a4da-11ea-91d0-bd420a9db610.JPG)
 
 We also tested our model for other audios. We didn't annotated those files so grountruth and der are not possible to find out. We generated the hypothesis which was showing almost similar results if we listen to the meeting data. <br />
 Hypothesis on desh.wav Audio file\
