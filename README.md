@@ -10,9 +10,9 @@ Voice activity detection (VAD) is a technique in which the presence or absence o
 - WebRTC VAD is a Gaussian Mixture Model(GMM) based voice activity detector 
 - GMM model using PLP features
 - Two full covariance Gaussians: One for speech, and one for Non-Speech is used.
-To learn about PLP we followed this paper\
-[link](http://www5.informatik.uni-erlangen.de/Forschung/Publikationen/2005/Hoenig05-RPL.pdf). \
-Following is breif analysis of PLP. PLP consists of the following steps: 
+To learn about PLP we followed [this paper](http://www5.informatik.uni-erlangen.de/Forschung/Publikationen/2005/Hoenig05-RPL.pdf). \
+
+Following is brief analysis of PLP. PLP consists of the following steps: 
 
 (i) The power spectrum is computed from the windowed speech signal. \
 (ii) A frequency warping into the Bark scale is applied. \
@@ -117,17 +117,17 @@ Mean shift exploits KDE idea by imagining what the points would do if they all c
 # Dataset
 1. AMI Corpus Data
 The AMI Meeting Corpus is a multi-modal data set consisting of 100 hours of meeting recordings. For our project we have recordings of 2003 metting. There are four files with total length of more than 2 hours. Annotations have been already provided with this standard dataset. The dataset can be downloaded from the following [link](http://groups.inf.ed.ac.uk/ami/download/). There are a total of four files namely ('ES2003a', 'ES2003b', 'ES2003c', 'ES2003d') which we have used.
-2. Hindi A Data
-Hindi A data is taken from a [Hindi News Channel Debate on YouTube](https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s). The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. . The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5) This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
+2. Hindi A Data <br />
+Hindi A data is taken from a [Hindi News Channel Debate on YouTube](https://www.youtube.com/watch?v=1Yj8K2ZHttA&t=424s). The duration of dataset is approx 2 Hours. This data set is split into 3 files Hindi_01, Hindi_02 and Hindi_03 having approximately equal duration. The complete dataset is manually annotated. [Link to Hindi A dataset](https://drive.google.com/open?id=16XCqfCaNo9djdx_TVK3hHxP6by3RaKU5). This link consists of 3 audio files Hindi_01.wav, Hindi_02.wav and Hindi_03.wav and also the manually annotated csv file. The annotations are in the format (filename/duration/offset/speaker_id).
 3. Hindi B Data  
-Hindi B data is also taken from Hindi News channel Debate but it is more noise free and overlapping is less. It's duration is around 1 hour It is taken from this [YouTube Video](https://www.youtube.com/watch?v=fGEWWAly_-0). This dataset is also split into 3 files Hindi1_01,Hindi1_02, Hindi1_03. The complete dataset is manually annotated.
-[Link to Hindi B Data](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB).This link consists of 3 audio files Hindi1_01.wav,Hindi1_02.wav,Hindi1_03.wav along with manually annotated .csv file.
+Hindi B data is also taken from Hindi News channel Debate but it is more noise free and overlapping is less. Its duration is around 1 hour It is taken from this [YouTube Video](https://www.youtube.com/watch?v=fGEWWAly_-0). This dataset is also split into 3 files Hindi1_01,Hindi1_02, Hindi1_03. The complete dataset is manually annotated.
+[Link to Hindi B Data](https://drive.google.com/drive/folders/1jvSxEaMNx7IjzQIlrT4Vnl4x8TZTtZaB). This link consists of 3 audio files Hindi1_01.wav,Hindi1_02.wav,Hindi1_03.wav along with manually annotated .csv file.
 4. Other testing Datasets
 desh.wav audio file was extracted from [here](https://www.youtube.com/watch?v=kqA9ISVcPD0&t=24s). This is a YouTube video recorded on April 15, 2020.
 modi_2.wav audio file was extracted from [here](https://www.youtube.com/watch?v=qS1eOqGs3H0&t=725s). This is a YouTube video recorded on
 May 30, 2020.
-[Link to these testing Datasets](https://drive.google.com/drive/folders/1M6OVvNJeroElBYksoQy6Y4L9RgC1Z5JC)
-We have not manually annotated these files. For these file the the Hypothesis were generated using the code and Visualized manually by listening to the audio.\
+[Link to these testing Datasets](https://drive.google.com/drive/folders/1M6OVvNJeroElBYksoQy6Y4L9RgC1Z5JC). 
+We have not manually annotated these files. For these file the the Hypothesis were generated using the code and Visualized manually by listening to the audio.
 ### NOTE
 1. All the hindi datasets were taken from YouTube Video recordings. The audio files (.wav) from Youtube Video were extracted using the MiniTool uTube Downloader and then these files were converted from stereo type to mono type using Audacity software. The spliiting of the files was also done using Audacity. These splitted files were then exported as .wav files having sampling rate 48000Hz and were 16 bit PCM encoded.
 2. Hindi A and Hindi B datasets do not have the same speakers. In both the datasets, speakers are different and none of the speakers is common.
@@ -151,7 +151,7 @@ reference, ref_df = reference_gen('/content/drive/My Drive/SRU/hindi_annotations
 # Analysis
 In this part we will discuss about the major analysis of the code and the intepretations of the results.
 1. Voice activity Detector <br />
-Following is the code to find the voice and non voice parts,
+Following is the code to find the voice and non voice parts:
 
 ```
 import contextlib
@@ -258,7 +258,7 @@ Trainable params: 571,489
 Non-trainable params: 0
 _________________________________________________________________
 ``` 
-Having total 571,489 trainable parameters it takes around 2 and half hours on AMI corpus dataset to be trained. After training the model we determine the change points, Following visual representation shows the change point on ES2003a file of AMI corpus <br />
+Having total 571,489 trainable parameters it takes around 2 and half hours on AMI corpus dataset to be trained. After training the model we determine the change points, Following visual representation shows the change point on ES2003a file of AMI corpus: <br />
 ![Segmentation Results](https://user-images.githubusercontent.com/61666843/80796726-94d09980-8bbd-11ea-94f9-a952e55d9991.png)
 
 3. Combining VAD and Speaker Segmentation <br />
@@ -267,7 +267,7 @@ Next in this part we have combined the two outputs in a logical manner as explai
 As seen each frame corresponds to a single speaker. All that remains is to find which speakers are same and which are different. The above results are for ES2003a file of AMI corpus.
 
 4. Clustering and Embedding Extraction <br />
-The second most core aspect of this project is to correctly determine who is speaking. We have used pyannote, which extracts the d-vectors of frames generated in last section
+The second most core aspect of this project is to correctly determine who is speaking. We have used pyannote, which extracts the d-vectors of frames generated in last section.
  ```
  import torch
 from pyannote.core import Segment
