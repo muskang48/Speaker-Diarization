@@ -10,7 +10,7 @@ Voice activity detection (VAD) is a technique in which the presence or absence o
 - WebRTC VAD is a Gaussian Mixture Model(GMM) based voice activity detector 
 - GMM model using PLP features
 - Two full covariance Gaussians: One for speech, and one for Non-Speech is used.
-To learn about PLP we followed [this paper](http://www5.informatik.uni-erlangen.de/Forschung/Publikationen/2005/Hoenig05-RPL.pdf). \
+To learn about PLP we followed [this paper](http://www5.informatik.uni-erlangen.de/Forschung/Publikationen/2005/Hoenig05-RPL.pdf).
 
 Following is brief analysis of PLP. PLP consists of the following steps: 
 
