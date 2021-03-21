@@ -21,7 +21,7 @@ Following is brief analysis of PLP. PLP consists of the following steps:
 (v) An equal-loudness pre-emphasis weights the filter-bank outputs to simulate the sensitivity of hearing.\
 (vi) The equalized values are transformed according to the power law of Stevens by raising each to the power of 0.33. The resulting auditorily warped line spectrum is further processed by (vii) linear prediction (LP). Precisely speaking, applying LP to the auditorily warped line spectrum means that we compute the predictor coefficients of a (hypothetical) signal that has this warped spectrum as a power spectrum. \
 (viii) Finally, cepstral coefficients are obtained from the predictor coefficients by a recursion that is equivalent to the logarithm of the model spectrum followed by an inverse Fourier transform. Following figure shows a comparative scheme of PLP computation. \
-![01](https://user-images.githubusercontent.com/57112474/83497304-e7141b80-a4d7-11ea-91c8-5061103a15b0.JPG) \
+![01](https://user-images.githubusercontent.com/57112474/83497304-e7141b80-a4d7-11ea-91c8-5061103a15b0.JPG) 
 
 So in WebRTC these PLP features are computed for 10 ms frame and then two Variance models are compared to find whether this frame has audio or not.
 ## Speaker Segementation
